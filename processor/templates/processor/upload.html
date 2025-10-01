@@ -1,0 +1,73 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Bangla PDF Voter Data Extractor</title>
+    <!-- Tailwind CSS for styling -->
+    <script src="https://cdn.tailwindcss.com"></script>
+    <!-- Google Fonts for "Tiro Bangla" -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Tiro+Bangla:ital@0;1&display=swap" rel="stylesheet">
+    <style>
+        /* Apply the custom font to the body */
+        body {
+            font-family: 'Tiro Bangla', serif;
+        }
+    </style>
+</head>
+<body class="bg-gray-100 flex items-center justify-center min-h-screen">
+
+    <div class="bg-white rounded-lg shadow-xl p-8 max-w-lg w-full">
+        
+        <div class="text-center mb-8">
+            <h1 class="text-3xl font-bold text-gray-800">ভোটার তথ্য এক্সট্র্যাক্টর</h1>
+            <p class="text-gray-600 mt-2">আপনার পিডিএফ ফাইল আপলোড করুন এবং ফরম্যাট করা ডেটা পান।</p>
+        </div>
+
+        <!-- The form for uploading the file -->
+        <form action="{% url 'upload_view' %}" method="post" enctype="multipart/form-data">
+            <!-- Django CSRF token for security -->
+            {% csrf_token %}
+
+            <div class="space-y-6">
+                <!-- PDF File Input -->
+                <div>
+                    <label for="pdf_file" class="block text-lg font-medium text-gray-700">পিডিএফ ফাইল নির্বাচন করুন</label>
+                    <div class="mt-2 flex justify-center px-6 pt-5 pb-6 border-2 border-gray-300 border-dashed rounded-md">
+                        <div class="space-y-1 text-center">
+                            <svg class="mx-auto h-12 w-12 text-gray-400" stroke="currentColor" fill="none" viewBox="0 0 48 48" aria-hidden="true">
+                                <path d="M28 8H12a4 4 0 00-4 4v20m32-12v8m0 0v8a4 4 0 01-4 4H12a4 4 0 01-4-4v-4m32-4l-3.172-3.172a4 4 0 00-5.656 0L28 28M8 32l9.172-9.172a4 4 0 015.656 0L28 28m0 0l4 4m4-24h8m-4-4v8" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" />
+                            </svg>
+                            <div class="flex text-sm text-gray-600">
+                                <label for="pdf_file" class="relative cursor-pointer bg-white rounded-md font-medium text-indigo-600 hover:text-indigo-500 focus-within:outline-none focus-within:ring-2 focus-within:ring-offset-2 focus-within:ring-indigo-500">
+                                    <span>Upload a file</span>
+                                    <input id="pdf_file" name="pdf_file" type="file" class="sr-only" accept=".pdf" required>
+                                </label>
+                                <p class="pl-1">or drag and drop</p>
+                            </div>
+                            <p class="text-xs text-gray-500">PDF up to 10MB</p>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Output Filename Input -->
+                <div>
+                    <label for="output_filename" class="block text-lg font-medium text-gray-700">আউটপুট ফাইলের নাম (.txt ছাড়া)</label>
+                    <input type="text" name="output_filename" id="output_filename" class="mt-2 shadow-sm focus:ring-indigo-500 focus:border-indigo-500 block w-full sm:text-sm border-gray-300 rounded-md p-3" value="processed_data" required>
+                </div>
+            </div>
+
+            <!-- Submit Button -->
+            <div class="mt-8">
+                <button type="submit" class="w-full flex justify-center py-3 px-4 border border-transparent rounded-md shadow-sm text-lg font-medium text-white bg-indigo-600 hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+                    প্রসেস শুরু করুন
+                </button>
+            </div>
+
+        </form>
+    </div>
+
+</body>
+</html>
